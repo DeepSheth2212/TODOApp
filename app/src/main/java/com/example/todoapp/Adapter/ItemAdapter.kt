@@ -5,8 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.todoapp.DiffUtil.ItemDiffCallback
 import com.example.todoapp.R
 import com.example.todoapp.Room.Item
 
@@ -40,8 +42,11 @@ class ItemAdapter ( var itemList : List<Item> , private val listener : ItemClick
     }
 
     fun setData(itemList: List<Item>){
+
+        val itemDiffBack = ItemDiffCallback(this.itemList , itemList)
+        val diffResult = DiffUtil.calculateDiff(itemDiffBack);
         this.itemList = itemList
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this);
     }
 }
 
