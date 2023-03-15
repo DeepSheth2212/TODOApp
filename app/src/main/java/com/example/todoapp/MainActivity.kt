@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), ItemClicked {
         val itemDao = ItemDatabase.getDatabase(this).ItemDao()
         val itemRepository = ItemRepository(itemDao)
         val itemViewModelFactory = ItemViewModelFactory(itemRepository)
-         itemViewModel = ViewModelProvider(this,itemViewModelFactory)[ItemViewModel::class.java]
+        itemViewModel = ViewModelProvider(this,itemViewModelFactory)[ItemViewModel::class.java]
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
         val adapter = ItemAdapter(ArrayList(),this)
@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity(), ItemClicked {
         val intent = Intent(this , ViewActivity::class.java)
         intent.putExtra("Title",item.title)
         intent.putExtra("Desc",item.description)
+        intent.putExtra("time",item.time.toString())
         startActivity(intent)
     }
 
